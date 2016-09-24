@@ -12,5 +12,5 @@ app.listen((process.env.PORT || 3000));
 
 // Homepage
 app.get('/', function (req, res) {
-    res.send('Questo è cinemabot');
+    res.send('<h1>Questo è cinemabot</h1>');
 });
