@@ -14,3 +14,12 @@ app.listen((process.env.PORT || 3000));
 app.get('/', function (req, res) {
     res.send('<h1>Questo è cinemabot</h1>');
 });
+
+// Facebook Webhook
+app.get('/webhook', function (req, res) {
+    if (req.query['hub.verify_token'] === 'ciao_io_programmo_come_stai') {
+        res.send(req.query['hub.challenge']);
+    } else {
+        res.send('Token non valido');
+    }
+});
