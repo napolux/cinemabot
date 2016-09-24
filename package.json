@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/napolux/cinemabot/issues"
   },
-  "homepage": "https://github.com/napolux/cinemabot#readme"
+  "homepage": "https://github.com/napolux/cinemabot#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.75.0"
+  }
 }
