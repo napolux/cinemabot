@@ -31,12 +31,15 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             sendMessage(event.sender.id, {text: "Messaggio inviato: " + event.message.text});
+        } else if (event.postback) {
+            // Abbiamo ricevuto una postback
+            sendMessage("Postback ricevuta: " + JSON.stringify(event.postback));
         }
     }
     res.sendStatus(200);
 });
 
-// generic function sending messages
+// Invia un messaggio
 function sendMessage(recipientId, message) {
     request({
         url: 'https://graph.facebook.com/v2.7/me/messages',
