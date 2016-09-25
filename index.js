@@ -33,7 +33,7 @@ app.post('/webhook', function (req, res) {
             sendMessage(event.sender.id, {text: "Messaggio inviato: " + event.message.text});
         } else if (event.postback) {
             // Abbiamo ricevuto una postback
-            sendMessage("Postback ricevuta: " + JSON.stringify(event.postback));
+    console.log("Postback received: " + JSON.stringify(event.postback));
         }
     }
     res.sendStatus(200);
