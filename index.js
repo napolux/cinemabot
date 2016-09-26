@@ -29,13 +29,15 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     for (i = 0; i < events.length; i++) {
         var event = events[i];
-        console.log("******** " + JSON.stringify(event));
         if (event.message && event.message.text) {
             sendTextMessage(event.sender.id, "Messaggio inviato: " + event.message.text);
         } else if (event.postback) {
             // Abbiamo ricevuto una postback
             if(event.postback.payload == "start") {
-
+                console.log("POSTBACK: " + JSON.stringify(event));
+                sendHelpMessage()
+            } else {
+                console.log("POSTBACK: " + JSON.stringify(event));
             }
         } else if (event.message && event.message.attachments) {
             // Gestione degli allegati
@@ -85,3 +87,8 @@ function sendMessage(recipientId, message) {
         }
     });
 };
+
+// Messaggi personalizzati
+function sendHelpMessage(recipientId) {
+    sendTextMessage(recipientId, "Benvenuto! Questo è il cinema di ioProgrammo. Digita film per visualizzare i film in programma, digita aiuto per visualizzare di nuovo questo messaggio.");
+}
