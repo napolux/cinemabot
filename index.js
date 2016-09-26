@@ -6,6 +6,8 @@ var app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(express.static('public'));
+
 
 // L'applicazione sarà in ascolto sulla porta 3000 o su una porta predefinita dal server
 app.listen((process.env.PORT || 3000));
@@ -99,7 +101,7 @@ function evaluateCommand(recipientId, text) {
     if(command == "aiuto") {
         sendHelpMessage(recipientId)
     } else if(command == "film") {
-        sendTextMessage(recipientId, "Ecco i film in programma questa settimana")
+        sendTextMessage(recipientId, "Ecco i film in programma questa settimana");
         sendMovies(recipientId);
     } else {
         sendTextMessage(recipientId, "Mi spiace, non ho capito :-(");
