@@ -99,6 +99,7 @@ function evaluateCommand(recipientId, text) {
     if(command == "aiuto") {
         sendHelpMessage(recipientId)
     } else if(command == "film") {
+        sendTextMessage(recipientId, "Ecco i film in programma questa settimana")
         sendMovies(recipientId);
     } else {
         sendTextMessage(recipientId, "Mi spiace, non ho capito :-(");
@@ -144,6 +145,6 @@ function sendMovies(recipientId) {
             }]
         }
     }}; 
-       
+
     sendMessage(recipientId, msg);
 }
