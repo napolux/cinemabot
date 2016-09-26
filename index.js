@@ -97,11 +97,11 @@ function evaluateCommand(recipientId, text) {
     command = text.toLowerCase();
     console.log("Comando ricevuto: " + command);
     if(command == "aiuto") {
-        sendHelpMessage()
+        sendHelpMessage(recipientId)
     } else if(command == "film") {
 
     } else {
         sendTextMessage(recipientId, "Mi spiace, non ho capito :-(");
-        sendHelpMessage();                
+        sendHelpMessage(recipientId);                
     }
 }
