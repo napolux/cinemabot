@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 
+// La cartella per i file statici
+app.use(express.static('public'));
+
 // Il film che abbiamo scelto di prenotare
 var filmPrenotato = null;
 
@@ -12,7 +15,6 @@ var postiPrenotati = 0;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
 
 // L'applicazione sarà in ascolto sulla porta 3000 o su una porta predefinita dal server
@@ -44,11 +46,7 @@ app.post('/webhook', function (req, res) {
             if(event.postback.payload == "start") {
                 sendHelpMessage(event.sender.id)
             } else if(event.postback.payload.indexOf("prenota") !== -1) {
-                var film = event.postback.payload.split(" ");
-                // Trasformiamo il dato passato dalla postback
-                filmPrenotato = film[1].charAt(0).toUpperCase() + film[1].slice(1);
-                filmPrenotato = filmPrenotato.replace("_", " ");
-                sendTextMessage(event.sender.id, "Quanti posti vuoi prenotare per " + filmPrenotato + "?");
+                getReservation(event);
             } else {
                 console.log("POSTBACK: " + JSON.stringify(event));
             }
@@ -171,5 +169,48 @@ function sendMovies(recipientId) {
         }
     }}; 
 
+    sendMessage(recipientId, msg);
+}
+
+// Gestione della prenotazione
+function getReservation(event) {
+    var film = event.postback.payload.split(" ");
+    // Trasformiamo il dato passato dalla postback
+    filmPrenotato = film[1].charAt(0).toUpperCase() + film[1].slice(1);
+    filmPrenotato = filmPrenotato.replace("_", " ");
+    sendSeatRequest(event.sender.id);   
+}
+
+function sendSeatRequest(recipientId) {
+
+    var msg = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Quanti posti vuoi prenotare?",
+                    "image_url": "http://cinemabot-ioprogrammo.herokuapp.com/images/poltrone.jpg",
+                    "subtitle": "Scegli fino ad un massimo di 4 posti prenotabili",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "1 posto",
+                        "payload": "1 posto"
+                    },
+                        "type": "postback",
+                        "title": "2 posti",
+                        "payload": "2 posti"
+                    },
+                        "type": "postback",
+                        "title": "3 posti",
+                        "payload": "3 posti"
+                    },
+                        "type": "postback",
+                        "title": "4 posti",
+                        "payload": "4 posti"
+                    },]
+                }]
+            }
+    }};
     sendMessage(recipientId, msg);
 }
