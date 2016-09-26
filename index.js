@@ -47,6 +47,8 @@ app.post('/webhook', function (req, res) {
                 sendHelpMessage(event.sender.id)
             } else if(event.postback.payload.indexOf("prenota") !== -1) {
                 getReservation(event);
+            } else if(event.postback.payload.indexOf(" post") !== -1) {
+                getReceipt(event);
             } else {
                 console.log("POSTBACK: " + JSON.stringify(event));
             }
@@ -191,7 +193,7 @@ function sendSeatRequest(recipientId) {
                 "elements": [{
                     "title": "Quanti posti vuoi prenotare?",
                     "image_url": "http://cinemabot-ioprogrammo.herokuapp.com/images/poltrone.jpg",
-                    "subtitle": "Scegli fino ad un massimo di 3 posti prenotabili",
+                    "subtitle": "Scegli fino ad un massimo di 3 posti prenotabili, al prezzo di 5€ cadauno",
                     "buttons": [{
                         "type": "postback",
                         "title": "1 posto",
@@ -210,3 +212,52 @@ function sendSeatRequest(recipientId) {
     }};
     sendMessage(recipientId, msg);
 }
+
+
+// Calcolo del prezzo e invio ricevuta.
+function getReceipt(event) {
+    var seats = event.postback.payload.split(" ");
+    // Trasformiamo il dato passato dalla postback
+    postiPrenotati = seats[0];
+    sendReceipt(event.sender.id);   
+}
+
+// Invio della ricevuta
+function sendReceipt(recipientId) {
+    var msg = {{
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "receipt",
+            "recipient_name": "Mario Rossi",
+            "order_number": "12345678902",
+            "currency": "EUR",
+            "payment_method": "Visa 2345",
+            "timestamp": "1428444852",
+            "elements": [{
+                "title": filmPrenotato,
+                "subtitle": "Lo spettacolo è alle ore 19.00",
+                "quantity": postiPrenotati,
+                "price": 5 * postiPrenotati,
+                "currency": "EUR",
+                "image_url": "http://cinemabot-ioprogrammo.herokuapp.com/images/poltrone.jpg"
+            }],
+            "address": {
+                "street_1": "Via Roma 123",
+                "street_2": "",
+                "city": "Firenze",
+                "postal_code": "12345",
+                "state": "CA",
+                "country": "US"
+            },
+            "summary": {
+                "subtotal": 5 * postiPrenotati,
+                "shipping_cost": 0,
+                "total_tax": 0,
+                "total_cost": 5 * postiPrenotati
+            }]
+        }
+    }
+};
+    sendMessage(recipientId, msg);}
+
