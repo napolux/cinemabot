@@ -255,7 +255,7 @@ function sendReceipt(recipientId) {
                 "shipping_cost": 0,
                 "total_tax": 0,
                 "total_cost": 5 * postiPrenotati
-            }]
+            }
         }
     }
 };
