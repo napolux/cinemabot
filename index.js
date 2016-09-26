@@ -30,18 +30,43 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
-            sendMessage(event.sender.id, {text: "Messaggio inviato: " + event.message.text});
+            sendTextMessage(event.sender.id, "Messaggio inviato: " + event.message.text);
         } else if (event.postback) {
             // Abbiamo ricevuto una postback
-            sendMessage(event.sender.id, {text: "Postback: " + event.postback.payload })
+            if(event.postback.payload == "start") {
+
+            }
         } else if (event.message.attachments) {
-            sendMessage(event.sender.id, "Mi spiace, non posso gestire allegati!");
+            // Gestione degli allegati
+            sendTextMessage(event.sender.id, "Mi spiace, non posso gestire allegati!");
         }
     }
     res.sendStatus(200);
 });
 
-// Invia un messaggio
+// Invia un messaggio di testo
+function sendTextMessage(recipientId, text) {
+    var msg = {
+        "text": text
+    };
+    sendMessage(recipientId, msg)
+}
+
+// Sending a multimedia message
+function sendMultimediaMessage(recipientId, type, url) {
+    var msg = {
+        "attachment": {
+            "type": type,
+            "payload": {
+                "url": url
+            }
+        }
+    };    
+
+    sendMessage(recipientId, msg);
+}
+
+// Invia un messaggio generico
 function sendMessage(recipientId, message) {
     request({
         url: 'https://graph.facebook.com/v2.7/me/messages',
