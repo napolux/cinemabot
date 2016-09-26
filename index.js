@@ -224,7 +224,7 @@ function getReceipt(event) {
 
 // Invio della ricevuta
 function sendReceipt(recipientId) {
-    var msg = {{
+    var msg = {
     "attachment": {
         "type": "template",
         "payload": {
