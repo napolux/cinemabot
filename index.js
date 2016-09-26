@@ -33,8 +33,9 @@ app.post('/webhook', function (req, res) {
             sendMessage(event.sender.id, {text: "Messaggio inviato: " + event.message.text});
         } else if (event.postback) {
             // Abbiamo ricevuto una postback
-            console.log("Postback ricevuta: " + JSON.stringify(event));
             sendMessage(event.sender.id, {text: "Postback: " + event.postback.payload })
+        } else if (event.message.attachments) {
+            sendMessage(event.sender.id, "Mi spiace, non posso gestire allegati!");
         }
     }
     res.sendStatus(200);
