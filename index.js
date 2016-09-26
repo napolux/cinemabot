@@ -117,18 +117,17 @@ function sendMovies(recipientId) {
         "payload": {
             "template_type": "generic",
             "elements": [{
-                "title": "Avatar",
-                "item_url": "https://www.example.com",
-                "image_url": "https://www.example.com/image.jpg",
-                "subtitle": "Avatar, al cinema dal 30 settembre",
+                "title": "Casablanca",
+                "image_url": "http://cinemabot-ioprogrammo.herokuapp.com/images/casablanca.jpg",
+                "subtitle": "Film del 1942 diretto da Michael Curtiz",
                 "buttons": [{
                     "type": "web_url",
-                    "url": "https://www.example.com",
-                    "title": "Visualizza sito"
+                    "url": "https://it.wikipedia.org/wiki/Casablanca_(film)#Trama",
+                    "title": "Visualizza trama"
                 }, {
                     "type": "postback",
                     "title": "Prenota",
-                    "payload": "prenota avatar"
+                    "payload": "prenota casablanca"
                 }]
             }, {
                 "title": "Ironman",
