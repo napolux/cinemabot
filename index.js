@@ -44,9 +44,12 @@ app.post('/webhook', function (req, res) {
             if(event.postback.payload == "start") {
                 sendHelpMessage(event.sender.id)
             } else if(event.postback.payload.indexOf("prenota") !== -1) {
-                // stiamo effettuando una prenotazione
-                filmPrenotato = event.postback.payload[1];
-                console.log("Film prenotato: " + filmPrenotato);
+                sendTextMessage("Ottima scelta!");
+                var film = event.postback.payload.split(" ");
+                // Trasformiamo il dato passato dalla postback
+                filmPrenotato = film[1].charAt(0).toUpperCase() + film[1].slice(1);
+                filmPrenotato = film.replace("_", " ");
+                sendTextMessage(recipientId, "Quanti posti vuoi prenotare per " + filmPrenotato + "?");
             } else {
                 console.log("POSTBACK: " + JSON.stringify(event));
             }
@@ -137,7 +140,7 @@ function sendMovies(recipientId) {
                 }, {
                     "type": "postback",
                     "title": "Prenota \"Casablanca\"",
-                    "payload": "prenota Casablanca"
+                    "payload": "prenota casablanca"
                 }]
             }, {
                 "title": "Frankenstein",
@@ -150,7 +153,7 @@ function sendMovies(recipientId) {
                 }, {
                     "type": "postback",
                     "title": "Prenota \"Frankenstein\"",
-                    "payload": "prenota Frankenstein"
+                    "payload": "prenota frankenstein"
                 }]
             },{
                 "title": "Il grande dittatore",
@@ -163,7 +166,7 @@ function sendMovies(recipientId) {
                 }, {
                     "type": "postback",
                     "title": "Prenota \"Il grande dittatore\"",
-                    "payload": "prenota Il grande dittatore"
+                    "payload": "prenota il_grande_dittatore"
                 }]
             }]
         }
