@@ -4,6 +4,12 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 
+// Il film che abbiamo scelto di prenotare
+var filmPrenotato = null;
+
+// Il numero di posti prenotati
+var postiPrenotati = 0;
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -37,6 +43,10 @@ app.post('/webhook', function (req, res) {
             // Abbiamo ricevuto una postback
             if(event.postback.payload == "start") {
                 sendHelpMessage(event.sender.id)
+            } else if(event.postback.payload[0] && event.postback.payload[0] == "prenota") {
+                // stiamo effettuando una prenotazione
+                filmPrenotato = event.postback.payload[1];
+                console.log("Film prenotato: " + filmPrenotato);
             } else {
                 console.log("POSTBACK: " + JSON.stringify(event));
             }
@@ -56,7 +66,7 @@ function sendTextMessage(recipientId, text) {
     sendMessage(recipientId, msg)
 }
 
-// Sending a multimedia message
+// Invia messaggio multimediale
 function sendMultimediaMessage(recipientId, type, url) {
     var msg = {
         "attachment": {
@@ -89,7 +99,7 @@ function sendMessage(recipientId, message) {
     });
 };
 
-// Messaggi personalizzati
+// Messaggio di aiuto
 function sendHelpMessage(recipientId) {
     sendTextMessage(recipientId, "Digita FILM per visualizzare i film in programma, digita AIUTO per visualizzare di nuovo questo messaggio.");
 }
@@ -126,8 +136,8 @@ function sendMovies(recipientId) {
                     "title": "Visualizza trama"
                 }, {
                     "type": "postback",
-                    "title": "Prenota",
-                    "payload": "prenota casablanca"
+                    "title": "Prenota \"Casablanca\"",
+                    "payload": ["prenota", "Casablanca"]
                 }]
             }, {
                 "title": "Frankenstein",
@@ -139,8 +149,8 @@ function sendMovies(recipientId) {
                     "title": "Visualizza trama"
                 }, {
                     "type": "postback",
-                    "title": "Prenota",
-                    "payload": "prenota frankenstein"
+                    "title": "Prenota \"Frankenstein\"",
+                    "payload": ["prenota", "Frankenstein"]
                 }]
             },{
                 "title": "Il grande dittatore",
@@ -152,8 +162,8 @@ function sendMovies(recipientId) {
                     "title": "Visualizza trama"
                 }, {
                     "type": "postback",
-                    "title": "Prenota",
-                    "payload": "prenota ilgrandedittatore"
+                    "title": "Prenota \"Il grande dittatore\"",
+                    "payload": ["prenota", "Il grande dittatore"]
                 }]
             }]
         }
