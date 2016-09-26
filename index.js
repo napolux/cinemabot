@@ -95,6 +95,7 @@ function sendHelpMessage(recipientId) {
 // Gestione dei comandi
 function evaluateCommand(recipientId, text) {
     command = text.toLowerCase();
+    console.log("Comando ricevuto: " + command);
     if(command == "aiuto") {
         sendHelpMessage()
     } else if(command == "film") {
