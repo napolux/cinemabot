@@ -191,7 +191,7 @@ function sendSeatRequest(recipientId) {
                 "elements": [{
                     "title": "Quanti posti vuoi prenotare?",
                     "image_url": "http://cinemabot-ioprogrammo.herokuapp.com/images/poltrone.jpg",
-                    "subtitle": "Scegli fino ad un massimo di 4 posti prenotabili",
+                    "subtitle": "Scegli fino ad un massimo di 3 posti prenotabili",
                     "buttons": [{
                         "type": "postback",
                         "title": "1 posto",
