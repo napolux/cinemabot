@@ -37,7 +37,7 @@ app.post('/webhook', function (req, res) {
             if(event.postback.payload == "start") {
 
             }
-        } else if (event.message.attachments) {
+        } else if (event.message && event.message.attachments) {
             // Gestione degli allegati
             sendTextMessage(event.sender.id, "Mi spiace, non posso gestire allegati!");
         }
