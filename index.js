@@ -30,7 +30,7 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
-            sendTextMessage(event.sender.id, "Messaggio inviato: " + event.message.text);
+            evaluateCommand(event.sender.id, event.message.text);
         } else if (event.postback) {
             // Abbiamo ricevuto una postback
             if(event.postback.payload == "start") {
@@ -89,5 +89,18 @@ function sendMessage(recipientId, message) {
 
 // Messaggi personalizzati
 function sendHelpMessage(recipientId) {
-    sendTextMessage(recipientId, "Benvenuto! Questo è il cinema di ioProgrammo. Digita film per visualizzare i film in programma, digita aiuto per visualizzare di nuovo questo messaggio.");
+    sendTextMessage(recipientId, "Digita FILM per visualizzare i film in programma, digita AIUTO per visualizzare di nuovo questo messaggio.");
+}
+
+// Gestione dei comandi
+function evaluateCommand(recipientId, text) {
+    command = text.toLowerCase();
+    if(command == "aiuto") {
+        sendHelpMessage()
+    } else if(command == "film") {
+
+    } else {
+        sendTextMessage(recipientId, "Mi spiace, non ho capito :-(");
+        sendHelpMessage();                
+    }
 }
