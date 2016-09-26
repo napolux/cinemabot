@@ -196,19 +196,19 @@ function sendSeatRequest(recipientId) {
                         "type": "postback",
                         "title": "1 posto",
                         "payload": "1 posto"
-                    },
+                    },{
                         "type": "postback",
                         "title": "2 posti",
                         "payload": "2 posti"
-                    },
+                    },{
                         "type": "postback",
                         "title": "3 posti",
                         "payload": "3 posti"
-                    },
+                    },{
                         "type": "postback",
                         "title": "4 posti",
                         "payload": "4 posti"
-                    },]
+                    }]
                 }]
             }
     }};
