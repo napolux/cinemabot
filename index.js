@@ -44,7 +44,7 @@ app.post('/webhook', function (req, res) {
             if(event.postback.payload == "start") {
                 sendHelpMessage(event.sender.id)
             } else if(event.postback.payload.indexOf("prenota") !== -1) {
-                sendTextMessage("Ottima scelta!");
+                sendTextMessage(event.sender.id, "Ottima scelta!");
                 var film = event.postback.payload.split(" ");
                 // Trasformiamo il dato passato dalla postback
                 filmPrenotato = film[1].charAt(0).toUpperCase() + film[1].slice(1);
