@@ -34,8 +34,7 @@ app.post('/webhook', function (req, res) {
         } else if (event.postback) {
             // Abbiamo ricevuto una postback
             if(event.postback.payload == "start") {
-                console.log("POSTBACK: " + JSON.stringify(event));
-                sendHelpMessage()
+                sendHelpMessage(event.sender.id)
             } else {
                 console.log("POSTBACK: " + JSON.stringify(event));
             }
