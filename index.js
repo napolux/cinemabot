@@ -99,9 +99,51 @@ function evaluateCommand(recipientId, text) {
     if(command == "aiuto") {
         sendHelpMessage(recipientId)
     } else if(command == "film") {
-
+        sendMovies(recipientId);
     } else {
         sendTextMessage(recipientId, "Mi spiace, non ho capito :-(");
         sendHelpMessage(recipientId);                
     }
+}
+
+// Invia la lista dei film in programmazione
+function sendMovies(recipientId) {
+    var msg = {
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "generic",
+            "elements": [{
+                "title": "Avatar",
+                "item_url": "https://www.example.com",
+                "image_url": "https://www.example.com/image.jpg",
+                "subtitle": "Avatar, al cinema dal 30 settembre",
+                "buttons": [{
+                    "type": "web_url",
+                    "url": "https://www.example.com",
+                    "title": "Visualizza sito"
+                }, {
+                    "type": "postback",
+                    "title": "Prenota",
+                    "payload": "prenota avatar"
+                }]
+            }, {
+                "title": "Ironman",
+                "item_url": "https://www.example.com",
+                "image_url": "https://www.example.com/image.jpg",
+                "subtitle": "Ironman, al cinema dal 25 settembre",
+                "buttons": [{
+                    "type": "web_url",
+                    "url": "https://www.example.com",
+                    "title": "Visualizza sito"
+                }, {
+                    "type": "postback",
+                    "title": "Prenota",
+                    "payload": "prenota ironman"
+                }]
+            }]
+        }
+    }}; 
+       
+    sendMessage(recipientId, msg);
 }
