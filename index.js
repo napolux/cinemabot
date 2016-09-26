@@ -43,7 +43,7 @@ app.post('/webhook', function (req, res) {
             // Abbiamo ricevuto una postback
             if(event.postback.payload == "start") {
                 sendHelpMessage(event.sender.id)
-            } else if(event.postback.payload[0] && event.postback.payload[0] == "prenota") {
+            } else if(event.postback.payload.indexOf("prenota") !== -1) {
                 // stiamo effettuando una prenotazione
                 filmPrenotato = event.postback.payload[1];
                 console.log("Film prenotato: " + filmPrenotato);
@@ -137,7 +137,7 @@ function sendMovies(recipientId) {
                 }, {
                     "type": "postback",
                     "title": "Prenota \"Casablanca\"",
-                    "payload": ["prenota", "Casablanca"]
+                    "payload": "prenota Casablanca"
                 }]
             }, {
                 "title": "Frankenstein",
@@ -150,7 +150,7 @@ function sendMovies(recipientId) {
                 }, {
                     "type": "postback",
                     "title": "Prenota \"Frankenstein\"",
-                    "payload": ["prenota", "Frankenstein"]
+                    "payload": "prenota Frankenstein"
                 }]
             },{
                 "title": "Il grande dittatore",
@@ -163,7 +163,7 @@ function sendMovies(recipientId) {
                 }, {
                     "type": "postback",
                     "title": "Prenota \"Il grande dittatore\"",
-                    "payload": ["prenota", "Il grande dittatore"]
+                    "payload": "prenota Il grande dittatore"
                 }]
             }]
         }
