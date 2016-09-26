@@ -130,18 +130,30 @@ function sendMovies(recipientId) {
                     "payload": "prenota casablanca"
                 }]
             }, {
-                "title": "Ironman",
-                "item_url": "https://www.example.com",
-                "image_url": "https://www.example.com/image.jpg",
-                "subtitle": "Ironman, al cinema dal 25 settembre",
+                "title": "Frankenstein",
+                "image_url": "http://cinemabot-ioprogrammo.herokuapp.com/images/frankenstein.jpg",
+                "subtitle": "Film horror fantascientifico del 1931 diretto da James Whale",
                 "buttons": [{
                     "type": "web_url",
-                    "url": "https://www.example.com",
-                    "title": "Visualizza sito"
+                    "url": "https://it.wikipedia.org/wiki/Frankenstein_(film_1931)#Trama",
+                    "title": "Visualizza trama"
                 }, {
                     "type": "postback",
                     "title": "Prenota",
-                    "payload": "prenota ironman"
+                    "payload": "prenota frankenstein"
+                }]
+            },{
+                "title": "Il grande dittatore",
+                "image_url": "http://cinemabot-ioprogrammo.herokuapp.com/images/ilgrandedittatore.jpg",
+                "subtitle": "Film statunitense del 1940 diretto, prodotto e interpretato da Charlie Chaplin",
+                "buttons": [{
+                    "type": "web_url",
+                    "url": "https://it.wikipedia.org/wiki/Il_grande_dittatore#Trama",
+                    "title": "Visualizza trama"
+                }, {
+                    "type": "postback",
+                    "title": "Prenota",
+                    "payload": "prenota ilgrandedittatore"
                 }]
             }]
         }
