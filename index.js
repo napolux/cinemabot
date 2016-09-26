@@ -48,7 +48,7 @@ app.post('/webhook', function (req, res) {
                 var film = event.postback.payload.split(" ");
                 // Trasformiamo il dato passato dalla postback
                 filmPrenotato = film[1].charAt(0).toUpperCase() + film[1].slice(1);
-                filmPrenotato = film.replace("_", " ");
+                filmPrenotato = filmPrenotato.replace("_", " ");
                 sendTextMessage(recipientId, "Quanti posti vuoi prenotare per " + filmPrenotato + "?");
             } else {
                 console.log("POSTBACK: " + JSON.stringify(event));
