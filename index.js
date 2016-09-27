@@ -213,16 +213,15 @@ function sendSeatRequest(recipientId) {
     sendMessage(recipientId, msg);
 }
 
+    // Calcolo dei posti prenotati e invio della ricevuta.
+    function getReceipt(event) {
+        var seats = event.postback.payload.split(" ");
+        // Trasformiamo il dato passato dalla postback
+        postiPrenotati = seats[0];
+        sendReceipt(event.sender.id);   
+    }
 
-// Calcolo del prezzo e invio ricevuta.
-function getReceipt(event) {
-    var seats = event.postback.payload.split(" ");
-    // Trasformiamo il dato passato dalla postback
-    postiPrenotati = seats[0];
-    sendReceipt(event.sender.id);   
-}
-
-// Invio della ricevuta
+// Messaggio relativo alla ricevuta
 function sendReceipt(recipientId) {
     var msg = {
     "attachment": {
@@ -247,8 +246,8 @@ function sendReceipt(recipientId) {
                 "street_2": "",
                 "city": "Firenze",
                 "postal_code": "12345",
-                "state": "CA",
-                "country": "US"
+                "state": "FI",
+                "country": "IT"
             },
             "summary": {
                 "subtotal": 5 * postiPrenotati,
@@ -259,5 +258,6 @@ function sendReceipt(recipientId) {
         }
     }
 };
-    sendMessage(recipientId, msg);}
+    sendMessage(recipientId, msg);
+}
 
